@@ -26,10 +26,13 @@ namespace MVC.Controllers
         public IActionResult Create(Alumnos model)
         {
             ModelState.Remove("NombreCompleto");
+
             if(ModelState.IsValid)
             {
                 _dbConn.Alumnos.Add(model);
+
                 _dbConn.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View (model);
