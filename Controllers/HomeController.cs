@@ -16,9 +16,8 @@ namespace MVC.Controllers
         }
 
         public IActionResult Index()
-        {
-            appDbContext.Alumnos.ToList(); 
-            return View(Alumnos);
+        { 
+            return View();
         }
 
         public IActionResult Privacy()

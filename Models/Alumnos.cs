@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MVC.Models
 {
-    public class Alumno
+    public class Alumnos : BaseModel 
     {
         #region Propiedades
         [Key ]
@@ -25,7 +25,8 @@ namespace MVC.Models
         #endregion Propiedades
 
         #region Constructor
-        public Alumno(string nombres, int edad, string apellidos, DateTime fechaNacimiento)
+        public Alumnos() { }
+        public Alumnos(string nombres, int edad, string apellidos, DateTime fechaNacimiento)
         {
             Nombres = nombres;
             Edad = edad;
