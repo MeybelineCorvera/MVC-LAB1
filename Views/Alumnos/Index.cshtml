@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xl-12 col-md-12 col-sm-12 d-flex justify-content-start">
-			<a type="button" class="btn btn-primary" asp-action="Create" asp-controller="Alumnos"><span class="fas fa-plus"></span> Agregar</a>
+			<a type="button" class="btn btn-primary" asp-action="UpSert" asp-controller="Alumnos"><span class="fas fa-plus"></span> Agregar</a>
 		</div>
 		<div class="col-xl-12 col-md-12 col-sm-12 mt-3">
 			<table class="table table-hover">
@@ -18,6 +18,8 @@
 				<th>ID</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
+				<th>Estado</th>
+				<th>Acciones</th>
 				</thead>
 				<tbody>
 					@{
@@ -27,6 +29,27 @@
 								<td>@alumno.AlumnoId</td>
 								<td>@alumno.Nombres</td>
 								<td>@alumno.Apellidos</td>
+								<td>
+                                    @if (alumno.IsActive)
+									{
+										<span class="badge bg-success">Activo</span>
+									}
+									else
+									{
+										<span class="badge bg-danger">Inactivo</span>
+									}
+								</td>
+								<td>
+									<a ype="button" class="btn btn-success" asp-action="View" asp asp-controller="Alumnos" asp-route-id="@alumno.AlumnoId">
+										<span class="fas fa-eye"></span>
+									</a>
+									<a ype="button" class="btn btn-warning" asp-action="UpSert" asp asp-controller="Alumnos" asp-route-id="@alumno.AlumnoId">
+										<span class="fas fa-pencil"></span>
+									</a>
+									<a ype="button" class="btn btn-danger" asp-action="Delete" asp asp-controller="Alumnos" asp-route-id="@alumno.AlumnoId">
+										<span class="fas fa-trash"></span>
+									</a>
+								</td>
 							</tr>
 						}
 					}

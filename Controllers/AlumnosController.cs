@@ -17,25 +17,53 @@ namespace MVC.Controllers
             return View(alumnos);
         }
 
-        public IActionResult Create()
+        public IActionResult UpSert(int id)
         {
-            Alumnos alumno = new();
-            return View(alumno);
+            if (id == 0)
+            {
+                //REGISTRO NUEVO
+                Alumnos alumno = new();
+                return View(alumno);
+            }
+            else
+            {
+                //REGISTRO EXISTENTE
+                Alumnos alumno = _dbConn.Alumnos.FirstOrDefault(row => row.AlumnoId == id)?? new();
+                return View(alumno);
+            }
         }
         [HttpPost]
-        public IActionResult Create(Alumnos model)
+        public IActionResult UpSert(Alumnos model)
         {
             ModelState.Remove("NombreCompleto");
-
-            if(ModelState.IsValid)
+            if (model.AlumnoId  == 0)
             {
-                _dbConn.Alumnos.Add(model);
-
-                _dbConn.SaveChanges();
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _dbConn.Alumnos.Add(model);
+                    _dbConn.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    _dbConn.Alumnos.Update(model);
+                    _dbConn.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             return View (model);
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Alumnos alumno = _dbConn.Alumnos.FirstOrDefault(row => row.AlumnoId == id) ?? new();
+            alumno.IsActive = false;
+            _dbConn.Alumnos.Update(alumno);
+            _dbConn.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
